@@ -6,4 +6,5 @@ export class NumericSolveModels{
     interval_est: Array<number> =[];
     t: number = 0;
     total_points: number = 0;
+    method: string=''
 }

@@ -16,47 +16,40 @@ export class InitializeModelComponent implements OnInit {
   subscription: Subscription ;
   model_name: ModelName = new ModelName();
   form:FormGroup;
-  beta_est:Boolean =false
+  form2:FormGroup;
+  beta_est:Boolean =true
+  methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}]
+  classical_methods = [{name:'CG'},{name:'Newton-CG'},{name:'BFGS'},{name:'L-BFGS-B'}]
+  metaheuristics = [{name:'PSO'},{name:'DE'}]
 
   constructor(private route: ActivatedRoute, private modelService:SolveModelService, private fb: FormBuilder) { 
+    
     this.subscription=this.modelService.obtModelName().subscribe(data => {
       console.log(data)
     })
 
     this.form = this.fb.group({
-      beta: this.fb.group({ b_val: [Number,Validators.required],
-              b_est: [Boolean],
-              b_int: [Boolean]
-      }),
-      gamma: this.fb.group({ g_val: [Number,Validators.required],
-              g_est: [Boolean],
-              g_int: [Boolean]
-      }),
-      delta: this.fb.group({ d_val: [Number,Validators.required],
-              d_est: [Boolean],
-              d_int: [Boolean]
-      }),
-      e: this.fb.group({ e_val: [Number,Validators.required],
-              e_est: [Boolean],
-              e_int: [Boolean]
-      }),
-      birth: this.fb.group({ l_val: [Number,Validators.required],
-              l_est: [Boolean],
-              l_int: [Boolean]
-      }),
-      death: this.fb.group({ m_val: [Number,Validators.required],
-              m_est: [Boolean],
-              m_int: [Boolean]
-      }),
-      death_i: this.fb.group({ mi_val: [Number,Validators.required],
-              mi_est: [Boolean],
-              mi_int: [Boolean]
-      }),
-      vars: this.fb.group({ S:[Number,Validators.required],
-              I:[Number,Validators.required],
-              R:[Number,Validators.required],
-              E:[Number,Validators.required]        
-      })
+      method: [''],
+      b_val: [Number], b_est: [Boolean], b_int: [Boolean], b_max: [Number], b_min: [Number],
+      g_val: [Number], g_est: [Boolean], g_int: [Boolean], g_max: [Number], g_min: [Number],
+      d_val: [Number], d_est: [Boolean], d_int: [Boolean], d_max: [Number], d_min: [Number],
+      e_val: [Number], e_est: [Boolean], e_int: [Boolean], e_max: [Number], e_min: [Number],
+      l_val: [Number], l_est: [Boolean], l_int: [Boolean], l_max: [Number], l_min: [Number],
+      m_val: [Number], m_est: [Boolean], m_int: [Boolean], m_max: [Number], m_min: [Number],
+      mi_val: [Number], mi_est: [Boolean], mi_int: [Boolean], mi_max: [Number], mi_min: [Number],
+      S:[Number],I:[Number],R:[Number],E:[Number],
+      t:[Number],
+      total_points:[Number]
+    })
+
+    this.form2 = this.fb.group({
+      classical_method: [''],
+      metaheuristic: [''],
+      path: [''],
+      name_file: [''],
+      iter: [Number],
+      particle: [Number], cognitive: [Number], social: [Number], inercia: [Number],
+      population: [Number], crossing: [Number], scaled: [Number]
     })
   }
 

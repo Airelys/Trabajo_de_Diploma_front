@@ -16,7 +16,7 @@ export class ModelComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router, private modelService: SolveModelService) {
     this.form = this.fb.group({
-      model_name: ['',Validators.required],
+      model_name: ['',Validators.required]
     })
    }
 
