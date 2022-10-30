@@ -1,0 +1,81 @@
+<div class="container">
+    <div [ngSwitch]="model_name">
+        <img *ngSwitchCase="'SI'" src="../../../assets/img/si.jpg" width="400" height="200" alt="SI">
+        <img *ngSwitchCase="'SIR'" src="../../../assets/img/sir.jpg" width="400" height="200">
+        <img *ngSwitchCase="'SIRS'" src="../../../assets/img/sirs.jpg" width="400" height="200">
+        <img *ngSwitchDefault src="../../../assets/img/seir.jpg" width="400" height="200">
+    </div>
+
+    <form [formGroup]="form" #solve="ngForm" >
+        <table class="table table-sm">
+            <tr>
+                <td><h4>Parametros</h4></td> 
+                <td><h4>Valores Iniciales</h4></td>
+                <td><h4>Estimar??</h4></td>
+                <td><h4>Analisis de Intervalos??</h4></td>
+            </tr>
+            <tr>
+                <td>&beta;</td>
+                <td><input type="number" formControlName="b_val"/></td>
+                <td><input type="checkbox" formControlName="b_est" [checked]="beta_est" (change)="beta_est = !beta_est"/></td>
+                <td><input type="checkbox" formControlName="b_int" /></td>
+            </tr>
+            <tr>
+                <td>&gamma;</td>
+                <td><input type="number" formControlName="g_val"/></td>
+                <td><input type="checkbox" formControlName="g_est" /></td>
+                <td><input type="checkbox" formControlName="g_int" /></td>
+            </tr>
+            <tr>
+                <td>&delta;</td>
+                <td><input type="number" formControlName="d_val"/></td>
+                <td><input type="checkbox" formControlName="d_est" /></td>
+                <td><input type="checkbox" formControlName="d_int" /></td>
+            </tr>
+            <tr>
+                <td>e</td>
+                <td><input type="number" formControlName="e_val"/></td>
+                <td><input type="checkbox" formControlName="e_est" /></td>
+                <td><input type="checkbox" formControlName="e_int" /></td>
+            </tr>
+            <tr>
+                <td>&lambda;</td>
+                <td><input type="number" formControlName="l_val"/></td>
+                <td><input type="checkbox" formControlName="l_est" /></td>
+                <td><input type="checkbox" formControlName="l_int" /></td>
+            </tr>
+            <tr>
+                <td>&mu;</td>
+                <td><input type="number" formControlName="m_val"/></td>
+                <td><input type="checkbox" formControlName="m_est" /></td>
+                <td><input type="checkbox" formControlName="m_int" /></td>
+            </tr>
+            <tr>
+                <td>m</td>
+                <td><input type="number" formControlName="mi_val"/></td>
+                <td><input type="checkbox" formControlName="mi_est" /></td>
+                <td><input type="checkbox" formControlName="mi_int" /></td>
+            </tr>
+        </table>
+
+        <h3>Define valores iniciales para las variables</h3>
+        <table class="table table-sm">
+            <tr>
+                <td><h4>S</h4></td> 
+                <td><h4>I</h4></td>
+                <td><h4>R</h4></td>
+                <td><h4>E</h4></td>
+            </tr>
+            <tr>
+                <td><input type="number" formControlName="S"/></td>
+                <td><input type="number" formControlName="I"/></td>
+                <td><input type="number" formControlName="R"/></td>
+                <td><input type="number" formControlName="E"/></td>
+            </tr>
+        </table>
+
+    </form>
+
+
+    
+</div>
