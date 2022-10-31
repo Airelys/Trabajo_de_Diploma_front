@@ -3,14 +3,15 @@
         <img *ngSwitchCase="'SI'" src="../../../assets/img/si.jpg" width="400" height="200" alt="SI">
         <img *ngSwitchCase="'SIR'" src="../../../assets/img/sir.jpg" width="400" height="200">
         <img *ngSwitchCase="'SIRS'" src="../../../assets/img/sirs.jpg" width="400" height="200">
-        <img *ngSwitchDefault src="../../../assets/img/seir.jpg" width="400" height="200">
+        <img *ngSwitchCase="'SEIR'" src="../../../assets/img/seir.jpg" width="400" height="200">
+        <h3 *ngSwitchDefault>Resolver modelo</h3>
     </div>
 
     <form [formGroup]="form" #initialize_model="ngForm" >
 
         <table class="table table-sm">
             <tr>
-                <td><h4>Parametros</h4></td> 
+                <td><h4>Parametros</h4></td>
                 <td><h4>Valores Iniciales</h4></td>
                 <td><h4>Estimar??</h4></td>
                 <td><h4>Analisis de Intervalos??</h4></td>
@@ -19,75 +20,75 @@
             </tr>
             <tr>
                 <td>&beta;</td>
-                <td><input type="number" formControlName="b_val"/></td>
-                <td><input type="checkbox" formControlName="b_est" [checked]="beta_est" (change)="beta_est = !beta_est"/></td>
-                <td><input type="checkbox" formControlName="b_int" /></td>
-                <td><input type="number" formControlName="b_min"/></td>
-                <td><input type="number" formControlName="b_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(0,beta_value.value)"  #beta_value /></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(0,beta_est.value)"  #beta_est /></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(0,beta_int.value)"  #beta_int /></td>
+                <td><input type="number" (change)="updateParamsMinInitials(0,beta_min.value)"  #beta_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(0,beta_max.value)"  #beta_max/></td>
             </tr>
-            <tr>
+            <tr *ngIf="model_name.model_name!='SI'">
                 <td>&gamma;</td>
-                <td><input type="number" formControlName="g_val"/></td>
-                <td><input type="checkbox" formControlName="g_est" /></td>
-                <td><input type="checkbox" formControlName="g_int" /></td>
-                <td><input type="number" formControlName="g_min"/></td>
-                <td><input type="number" formControlName="g_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(1,gamma_value.value)"  #gamma_value /></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(1,gamma_est.value)"  #gamma_est /></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(1,gamma_int.value)"  #gamma_int /></td>
+                <td><input type="number" (change)="updateParamsMinInitials(1,gamma_min.value)"  #gamma_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(1,gamma_max.value)"  #gamma_max/></td>
             </tr>
-            <tr>
+            <tr *ngIf="model_name.model_name=='SIRS'">
                 <td>&delta;</td>
-                <td><input type="number" formControlName="d_val"/></td>
-                <td><input type="checkbox" formControlName="d_est" /></td>
-                <td><input type="checkbox" formControlName="d_int" /></td>
-                <td><input type="number" formControlName="d_min"/></td>
-                <td><input type="number" formControlName="d_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(2,delta_value.value)"  #delta_value/></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(2,delta_est.value)"  #delta_est/></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(2,delta_int.value)"  #delta_int/></td>
+                <td><input type="number" (change)="updateParamsMinInitials(2,delta_min.value)"  #delta_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(2,delta_max.value)"  #delta_max/></td>
             </tr>
-            <tr>
+            <tr *ngIf="model_name.model_name=='SEIR'">
                 <td>e</td>
-                <td><input type="number" formControlName="e_val"/></td>
-                <td><input type="checkbox" formControlName="e_est" /></td>
-                <td><input type="checkbox" formControlName="e_int" /></td>
-                <td><input type="number" formControlName="e_min"/></td>
-                <td><input type="number" formControlName="e_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(3,e_value.value)"  #e_value/></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(3,e_est.value)"  #e_est/></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(3,e_int.value)"  #e_int/></td>
+                <td><input type="number" (change)="updateParamsMinInitials(3,e_min.value)"  #e_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(3,e_max.value)"  #e_max/></td>
             </tr>
             <tr>
                 <td>&lambda;</td>
-                <td><input type="number" formControlName="l_val"/></td>
-                <td><input type="checkbox" formControlName="l_est" /></td>
-                <td><input type="checkbox" formControlName="l_int" /></td>
-                <td><input type="number" formControlName="l_min"/></td>
-                <td><input type="number" formControlName="l_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(4,lambda_value.value)"  #lambda_value/></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(4,lambda_est.value)"  #lambda_est /></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(4,lambda_int.value)"  #lambda_int/></td>
+                <td><input type="number" (change)="updateParamsMinInitials(4,lambda_min.value)"  #lambda_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(4,lambda_max.value)"  #lambda_max/></td>
             </tr>
             <tr>
                 <td>&mu;</td>
-                <td><input type="number" formControlName="m_val"/></td>
-                <td><input type="checkbox" formControlName="m_est" /></td>
-                <td><input type="checkbox" formControlName="m_int" /></td>
-                <td><input type="number" formControlName="m_min"/></td>
-                <td><input type="number" formControlName="m_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(5,mu_value.value)"  #mu_value/></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(5,mu_est.value)"  #mu_est/></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(5,mu_int.value)"  #mu_int/></td>
+                <td><input type="number" (change)="updateParamsMinInitials(5,mu_min.value)"  #mu_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(5,mu_max.value)"  #mu_max/></td>
             </tr>
             <tr>
                 <td>m</td>
-                <td><input type="number" formControlName="mi_val"/></td>
-                <td><input type="checkbox" formControlName="mi_est" /></td>
-                <td><input type="checkbox" formControlName="mi_int" /></td>
-                <td><input type="number" formControlName="mi_min"/></td>
-                <td><input type="number" formControlName="mi_max"/></td>
+                <td><input type="number" (change)="updateParamsInitials(6,m_value.value)"  #m_value/></td>
+                <td><input type="checkbox" (change)="updateParamsEstInitials(6,m_est.value)"  #m_est/></td>
+                <td><input type="checkbox" (change)="updateParamsIntInitials(6,m_int.value)"  #m_int/></td>
+                <td><input type="number" (change)="updateParamsMinInitials(6,m_min.value)"  #m_min/></td>
+                <td><input type="number" (change)="updateParamsMaxInitials(6,m_max.value)"  #m_max/></td>
             </tr>
         </table>
 
         <h3>Define valores iniciales para las variables</h3>
         <table class="table table-sm">
             <tr>
-                <td><h4>S</h4></td> 
+                <td><h4>S</h4></td>
                 <td><h4>I</h4></td>
-                <td><h4>R</h4></td>
-                <td><h4>E</h4></td>
+                <td *ngIf="model_name.model_name!='SI'"><h4>R</h4></td>
+                <td *ngIf="model_name.model_name=='SEIR'"><h4>E</h4></td>
             </tr>
             <tr>
-                <td><input type="number" formControlName="S"/></td>
-                <td><input type="number" formControlName="I"/></td>
-                <td><input type="number" formControlName="R"/></td>
-                <td><input type="number" formControlName="E"/></td>
+                <td><input type="number" (change)="updateVarsInitials(0,s_value.value)"  #s_value/></td>
+                <td><input type="number" (change)="updateVarsInitials(1,i_value.value)"  #i_value/></td>
+                <td *ngIf="model_name.model_name!='SI'"><input type="number" (change)="updateVarsInitials(2,r_value.value)"  #r_value/></td>
+                <td *ngIf="model_name.model_name=='SEIR'"><input type="number" (change)="updateVarsInitials(3,ee_value.value)"  #ee_value/></td>
             </tr>
         </table>
 
@@ -142,5 +143,5 @@
     </form>
 
 
-    
+
 </div>
