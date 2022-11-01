@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 import { Subscription} from 'rxjs'
-import { ModelName } from 'src/app/model/model_name';
+import { ModelName } from 'src/app/models/model_name';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 
 @Component({
@@ -14,7 +14,6 @@ import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 export class InitializeModelComponent implements OnInit {
 
   form:FormGroup;
-  form2:FormGroup;
   subscription: Subscription = new Subscription();
   model_name: ModelName = new ModelName();
   vars_initials = [{},{},{},{}]
@@ -24,37 +23,23 @@ export class InitializeModelComponent implements OnInit {
   params_max = [{},{},{},{},{},{},{}]
   params_min = [{},{},{},{},{},{},{}]
   methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}]
-  classical_methods = [{name:'CG'},{name:'Newton-CG'},{name:'BFGS'},{name:'L-BFGS-B'}]
-  metaheuristics = [{name:'PSO'},{name:'DE'}]
 
-  constructor(private route: ActivatedRoute, private modelService:SolveModelService, private fb: FormBuilder) {
-
-    this.subscription=this.modelService.obtModelName().subscribe(data => {
-      console.log(data)
-    })
+  constructor(private route: ActivatedRoute, private modelService:SolveModelService,
+              private fb: FormBuilder) {
 
     this.form = this.fb.group({
       method: [''],
       S:[Number],I:[Number],R:[Number],E:[Number],
       t:[Number],
-      total_points:[Number]
-    })
-
-    this.form2 = this.fb.group({
-      classical_method: [''],
-      metaheuristic: [''],
-      path: [''],
-      name_file: [''],
-      iter: [Number],
-      particle: [Number], cognitive: [Number], social: [Number], inercia: [Number],
-      population: [Number], crossing: [Number], scaled: [Number]
+      total_points:[Number],
+      N:[Number]
     })
   }
 
   ngOnInit(): void {
     this.subscription=this.modelService.obtModelName().subscribe(data => {
-      console.log(data)
       this.model_name = data
+      console.log(this.model_name.model_name)
     })
   }
 
@@ -103,7 +88,6 @@ export class InitializeModelComponent implements OnInit {
           element= [element[0],element[1],element[2],element[4],element[5],element[6]];
         }
         this.vars_initials = [this.vars_initials[0],this.vars_initials[1],this.vars_initials[2]];
-        break;
         break;
       case 'SEIR':
         for (let element of temp){

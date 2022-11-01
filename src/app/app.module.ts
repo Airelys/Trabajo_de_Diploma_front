@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http';
 import { ModelComponent } from './components/model/model.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InitializeModelComponent } from './components/initialize-model/initialize-model.component';
+import { SolveModelComponent } from './components/solve-model/solve-model.component';
+import { ParameterEstimationComponent } from './components/solve-model/parameter-estimation/parameter-estimation.component';
+import { InitializeModelComponent } from './components/solve-model/initialize-model/initialize-model.component';
 ;
 
 @NgModule({
@@ -18,7 +20,9 @@ import { InitializeModelComponent } from './components/initialize-model/initiali
     AppComponent,
     HeaderComponent,
     ModelComponent,
-    InitializeModelComponent
+    InitializeModelComponent,
+    ParameterEstimationComponent,
+    SolveModelComponent
   ],
   imports: [
     BrowserModule,

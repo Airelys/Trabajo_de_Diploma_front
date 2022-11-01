@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModelName } from 'src/app/model/model_name';
+import { ModelName } from 'src/app/models/model_name';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 
 @Component({
@@ -24,9 +24,10 @@ export class ModelComponent implements OnInit {
   }
 
   onSubmit():void{
-    const model_name: ModelName = this.form.get('model_name')?.value;
+    const model_name: ModelName = new ModelName()
+    model_name.model_name = this.form.get('model_name')?.value;
     this.modelService.updateModelName(model_name);
-    this.router.navigate(['/initialize_model']);
+    this.router.navigate(['/solve_model']);
   }
 
 }

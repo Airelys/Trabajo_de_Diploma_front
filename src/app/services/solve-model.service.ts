@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ModelName } from '../model/model_name';
+import { ModelName } from '../models/model_name';
 import { BehaviorSubject, Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolveModelService {
-  
-  private model_name = new BehaviorSubject<ModelName>({}as any); 
+
+  private model_name = new BehaviorSubject<ModelName>({}as any);
 
   constructor() { }
 

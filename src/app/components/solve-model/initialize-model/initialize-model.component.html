@@ -1,11 +1,4 @@
 <div class="container">
-    <div [ngSwitch]="model_name">
-        <img *ngSwitchCase="'SI'" src="../../../assets/img/si.jpg" width="400" height="200" alt="SI">
-        <img *ngSwitchCase="'SIR'" src="../../../assets/img/sir.jpg" width="400" height="200">
-        <img *ngSwitchCase="'SIRS'" src="../../../assets/img/sirs.jpg" width="400" height="200">
-        <img *ngSwitchCase="'SEIR'" src="../../../assets/img/seir.jpg" width="400" height="200">
-        <h3 *ngSwitchDefault>Resolver modelo</h3>
-    </div>
 
     <form [formGroup]="form" #initialize_model="ngForm" >
 
@@ -102,46 +95,8 @@
         <input type="number" formControlName="t"/>
         <h4>Total de puntos</h4>
         <input type="number" formControlName="total_points"/>
+        <h4>Si desea adimensionalizar inserte un valor de N</h4>
+        <input type="number" formControlName="N"/>
     </form>
-    <form [formGroup]="form2" #solve_model="ngForm" >
-
-        <h4>Selecciona un metodo clasico</h4>
-        <mat-form-field class="form_element">
-            <mat-select  formControlName="classical_method">
-                <mat-option *ngFor="let m of classical_methods" [value]="m.name" >{{m.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <h4>Selecciona un metaheuristica</h4>
-        <mat-form-field class="form_element">
-            <mat-select  formControlName="metaheuristic">
-                <mat-option *ngFor="let m of metaheuristics" [value]="m.name" >{{m.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <h4>Cantidad de iteraciones</h4>
-        <input type="number" formControlName="iter"/>
-        <h4>Cantidad de particulas</h4>
-        <input type="number" formControlName="particle"/>
-        <h4>Parametro cognitivo</h4>
-        <input type="number" formControlName="cognitive"/>
-        <h4>Parametro social</h4>
-        <input type="number" formControlName="social"/>
-        <h4>Parametro de inercia</h4>
-        <input type="number" formControlName="inercia"/>
-        <h4>Poblacion</h4>
-        <input type="number" formControlName="inercia"/>
-        <h4>Factor crossing</h4>
-        <input type="number" formControlName="crossing"/>
-        <h4>Factor de escalado</h4>
-        <input type="number" formControlName="scaled"/>
-        <h4>Selecciona archivo de datos</h4>
-        <input type="file" id="ctrl" webkitdirectory directory formControlName="path"/>
-        <h4>Nombre del archivo de datos</h4>
-        <input formControlName="name_file" />
-
-    </form>
-
-
 
 </div>

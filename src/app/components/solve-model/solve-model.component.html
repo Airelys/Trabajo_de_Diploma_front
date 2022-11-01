@@ -1,0 +1,21 @@
+<div class="jumbtron">
+  <div [ngSwitch]="model_name.model_name">
+    <img *ngSwitchCase="'SI'" src="../../../assets/img/si.jpg" width="400" height="200" alt="SI">
+    <img *ngSwitchCase="'SIR'" src="../../../assets/img/sir.jpg" width="400" height="200">
+    <img *ngSwitchCase="'SIRS'" src="../../../assets/img/sirs.jpg" width="400" height="200">
+    <img *ngSwitchCase="'SEIR'" src="../../../assets/img/seir.jpg" width="400" height="200">
+    <h3 *ngSwitchDefault>Resolver modelo</h3>
+  </div>
+  <div class="row">
+    <div>
+      <app-initialize-model></app-initialize-model>
+    </div>
+    <div>
+      <button mat-raised-button type="submit" *ngIf="!estimation" (click)="onSubmit()">Resolver numericamente</button>
+      <button (click)="updateEstimation()" *ngIf="!estimation">Estimar parametros</button>
+    </div>
+    <div *ngIf="estimation">
+      <app-parameter-estimation></app-parameter-estimation>
+    </div>
+  </div>
+</div>
