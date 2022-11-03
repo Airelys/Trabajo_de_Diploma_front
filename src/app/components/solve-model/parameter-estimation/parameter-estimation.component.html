@@ -3,38 +3,51 @@
 
     <h4>Selecciona un metodo clasico</h4>
     <mat-form-field class="form_element">
-        <mat-select  formControlName="classical_method">
+        <mat-select  (selectionChange)="updateClassicalMethod(c_method.value)" #c_method>
             <mat-option *ngFor="let m of classical_methods" [value]="m.name" >{{m.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 
     <h4>Selecciona un metaheuristica</h4>
     <mat-form-field class="form_element">
-        <mat-select  formControlName="metaheuristic">
+        <mat-select  (selectionChange)="updateMetaheuristic(met.value)" #met>
             <mat-option *ngFor="let m of metaheuristics" [value]="m.name" >{{m.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 
-    <h4>Cantidad de iteraciones</h4>
-    <input type="number" formControlName="iter"/>
-    <h4>Cantidad de particulas</h4>
-    <input type="number" formControlName="particle"/>
-    <h4>Parametro cognitivo</h4>
-    <input type="number" formControlName="cognitive"/>
-    <h4>Parametro social</h4>
-    <input type="number" formControlName="social"/>
-    <h4>Parametro de inercia</h4>
-    <input type="number" formControlName="inercia"/>
-    <h4>Poblacion</h4>
-    <input type="number" formControlName="inercia"/>
-    <h4>Factor crossing</h4>
-    <input type="number" formControlName="crossing"/>
-    <h4>Factor de escalado</h4>
-    <input type="number" formControlName="scaled"/>
+    <div *ngIf="metaheuristic!='None'">
+      <h4 >Cantidad de iteraciones</h4>
+      <input type="number" formControlName="iter"/>
+    </div>
+
+    <div *ngIf="pso">
+      <h4>Cantidad de particulas</h4>
+      <input type="number" formControlName="particle" />
+      <h4>Parametro cognitivo</h4>
+      <input type="number" formControlName="cognitive" />
+      <h4>Parametro social</h4>
+      <input type="number" formControlName="social" />
+      <h4>Parametro de inercia</h4>
+      <input type="number" formControlName="inercia" />
+    </div>
+
+    <div *ngIf="de">
+      <h4>Poblacion</h4>
+      <input type="number" formControlName="population" />
+      <h4>Factor crossing</h4>
+      <input type="number" formControlName="crossing" />
+      <h4>Factor de escalado</h4>
+      <input type="number" formControlName="scaled" />
+    </div>
+
     <h4>Selecciona archivo de datos</h4>
-    <input type="file" id="ctrl" webkitdirectory directory formControlName="path"/>
+    <input value=""/>
+    <input type="file" id="ctrl" webkitdirectory directory formControlName="path" #selectdirectory/>
     <h4>Nombre del archivo de datos</h4>
     <input formControlName="name_file" />
-
   </form>
+</div>
+
+<div class="container_button">
+  <button mat-raised-button type="submit" (click)="onSubmit()">Estimar</button>
 </div>

@@ -10,10 +10,7 @@
     <div>
       <app-initialize-model></app-initialize-model>
     </div>
-    <div>
-      <button mat-raised-button type="submit" *ngIf="!estimation" (click)="onSubmit()">Resolver numericamente</button>
-      <button (click)="updateEstimation()" *ngIf="!estimation">Estimar parametros</button>
-    </div>
+
     <div *ngIf="estimation">
       <app-parameter-estimation></app-parameter-estimation>
     </div>

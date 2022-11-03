@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ModelName } from 'src/app/models/model_name';
 import { SolveModelService } from 'src/app/services/solve-model.service';
+import { InitializeModelComponent } from './initialize-model/initialize-model.component';
 
 @Component({
   selector: 'app-solve-model',
@@ -18,6 +19,10 @@ export class SolveModelComponent implements OnInit {
     this.subscription=this.modelService.obtModelName().subscribe(data => {
       this.model_name = data
     })
+    this.subscription=this.modelService.obtEstimation().subscribe(data => {
+      this.estimation = data
+      console.log(this.estimation)
+    })
   }
 
   ngOnInit(): void {
@@ -25,10 +30,6 @@ export class SolveModelComponent implements OnInit {
 
   onSubmit(): void{
 
-  }
-
-  updateEstimation():void{
-    this.estimation=true
   }
 
 }
