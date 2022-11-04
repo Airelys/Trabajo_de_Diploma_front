@@ -5,6 +5,8 @@ import { NumericSolveModels } from '../models/numeric_solve_model';
 import { MinMax } from '../models/min_max';
 import { HttpClient } from '@angular/common/http';
 import { ResultsNumericSolve } from '../models/results_numeric_solve';
+import { ParameterEstimation } from '../models/parameter-estimation';
+import { ResultsParameterEstimation } from '../models/results_parameter_estimation';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +76,8 @@ export class SolveModelService {
 
   numericSolve(numeric_solve: NumericSolveModels): Observable<ResultsNumericSolve>{
     return this.http.post<ResultsNumericSolve>(this.apiUrl+this.numeric_solve_url,numeric_solve);
+  }
+  parammeterEstimation(est: ParameterEstimation): Observable<ResultsParameterEstimation>{
+    return this.http.post<ResultsParameterEstimation>(this.apiUrl+this.estimation_url,est);
   }
 }

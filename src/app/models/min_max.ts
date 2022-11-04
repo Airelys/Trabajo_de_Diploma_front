@@ -1,4 +1,4 @@
 export class MinMax{
-  params_min: Array<object> =[];
-  params_max: Array<object> =[];
+  params_min = [0,0,0,0,0,0,0];
+  params_max = [0,0,0,0,0,0,0];
 }

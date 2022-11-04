@@ -27,8 +27,8 @@ export class ParameterEstimationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private modelService:SolveModelService) {
     this.form = this.fb.group({
-      path: [''],
-      name_file: [''],
+      path:[''],
+      file_name: [''],
       iter: [Number],
       particle: [Number], cognitive: [Number], social: [Number], inercia: [Number],
       population: [Number], crossing: [Number], scaled: [Number]
@@ -38,7 +38,7 @@ export class ParameterEstimationComponent implements OnInit {
   ngOnInit(): void {
     this.subscription=this.modelService.obtNumericSolveModel().subscribe(data => {
       this.numeric_solve = data
-      console.log(this.numeric_solve)
+      console.log(this.numeric_solve.params)
     })
 
     this.subscription=this.modelService.obtMinMax().subscribe(data => {
@@ -71,34 +71,45 @@ export class ParameterEstimationComponent implements OnInit {
     }
   }
 
-  saveEstimationParameter(): void{
-    const estimation_parameter: ParameterEstimation = new ParameterEstimation();
-    estimation_parameter.model_name = this.numeric_solve.model_name
-    estimation_parameter.vars_initials = this.numeric_solve.vars_initials;
-    estimation_parameter.params = this.numeric_solve.params;
-    estimation_parameter.params_est = this.numeric_solve.params_est;
-    estimation_parameter.t = this.numeric_solve.t;
-    estimation_parameter.total_points = this.numeric_solve.total_points;
-    estimation_parameter.method = this.numeric_solve.method;
-    estimation_parameter.N = this.numeric_solve.N;
-    estimation_parameter.params_min = this.min_max.params_min;
-    estimation_parameter.params_max = this.min_max.params_max;
-    estimation_parameter.classical_method = this.classical_method;
-    estimation_parameter.metaheuristic = this.metaheuristic;
-    estimation_parameter.path = this.form.get('path')?.value + this.form.get('name_file')?.value;
-    estimation_parameter.iter = this.form.get('iter')?.value;
-    estimation_parameter.particle = this.form.get('particle')?.value;
-    estimation_parameter.cognitive = this.form.get('cognitive')?.value;
-    estimation_parameter.social = this.form.get('social')?.value;
-    estimation_parameter.inercia = this.form.get('inercia')?.value;
-    estimation_parameter.population = this.form.get('population')?.value;
-    estimation_parameter.crossing = this.form.get('crossing')?.value;
-    estimation_parameter.scaled = this.form.get('scaled')?.value;
+  saveParameterEstimation(): ParameterEstimation{
+    const parameter_estimation: ParameterEstimation = new ParameterEstimation();
+    parameter_estimation.model_name = this.numeric_solve.model_name
+    parameter_estimation.vars_initials = this.numeric_solve.vars_initials;
+    parameter_estimation.params = this.numeric_solve.params;
+    parameter_estimation.params_est = this.numeric_solve.params_est;
+    parameter_estimation.t = this.numeric_solve.t;
+    parameter_estimation.total_points = this.numeric_solve.total_points;
+    parameter_estimation.method = this.numeric_solve.method;
+    parameter_estimation.N = this.numeric_solve.N;
+    parameter_estimation.params_min = this.min_max.params_min;
+    parameter_estimation.params_max = this.min_max.params_max;
+    parameter_estimation.classical_method = this.classical_method;
+    parameter_estimation.metaheuristic = this.metaheuristic;
+    parameter_estimation.path = this.form.get('path')?.value + '\\'+this.form.get('file_name')?.value;
+    console.log(parameter_estimation.path)
+    if(this.metaheuristic!='None'){
+      parameter_estimation.iter = this.form.get('iter')?.value;
+      if(this.metaheuristic!='PSO'){
+        parameter_estimation.particle = this.form.get('particle')?.value;
+        parameter_estimation.cognitive = this.form.get('cognitive')?.value;
+        parameter_estimation.social = this.form.get('social')?.value;
+        parameter_estimation.inercia = this.form.get('inercia')?.value;
+      }
+      else{
+        parameter_estimation.population = this.form.get('population')?.value;
+        parameter_estimation.crossing = this.form.get('crossing')?.value;
+        parameter_estimation.scaled = this.form.get('scaled')?.value;
+      }
+    }
+    return parameter_estimation;
   }
 
   onSubmit():void{
     this.modelService.updateAll(true);
+    const parameter_est: ParameterEstimation = this.saveParameterEstimation();
+    this.modelService.parammeterEstimation(parameter_est).subscribe(data => {
+      console.log(data)
+    })
 
   }
-
 }

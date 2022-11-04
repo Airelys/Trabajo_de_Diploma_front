@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="form" #solve_model="ngForm" >
+  <form [formGroup]="form" #solve_model="ngForm" enctype="multipart/form-data">
 
     <h4>Selecciona un metodo clasico</h4>
     <mat-form-field class="form_element">
@@ -40,11 +40,11 @@
       <input type="number" formControlName="scaled" />
     </div>
 
-    <h4>Selecciona archivo de datos</h4>
-    <input value=""/>
-    <input type="file" id="ctrl" webkitdirectory directory formControlName="path" #selectdirectory/>
+    <h4>Escriba el path del archivo de datos</h4>
+    <input value="" formControlName="path" #selectdirectory/>
+    <h5></h5>
     <h4>Nombre del archivo de datos</h4>
-    <input formControlName="name_file" />
+    <input formControlName="file_name" />
   </form>
 </div>
 

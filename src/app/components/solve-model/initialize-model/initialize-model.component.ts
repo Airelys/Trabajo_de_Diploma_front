@@ -20,8 +20,8 @@ export class InitializeModelComponent implements OnInit {
   vars_initials = [{},{},{},{}];
   params_initials = [{},{},{},{},{},{},{}];
   params_est = [false,false,false,false,false,false,false];
-  params_max = [{},{},{},{},{},{},{}];
-  params_min = [{},{},{},{},{},{},{}];
+  params_max = [0,0,0,0,0,0,0];
+  params_min = [0,0,0,0,0,0,0];
   methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}];
   estimation = false;
   bounds = false;
@@ -49,7 +49,7 @@ export class InitializeModelComponent implements OnInit {
       console.log(this.bounds)
     })
 
-    this.subscription=this.modelService.obtBounds().subscribe(data => {
+    this.subscription=this.modelService.obtUpdate().subscribe(data => {
       this.update = data
       console.log(this.update)
       if(this.update){
@@ -131,7 +131,6 @@ export class InitializeModelComponent implements OnInit {
 
   onSubmit(): void{
     const numeric_solve_models: NumericSolveModels = this.saveNumericSolveModel();
-    console.log('va a entrar')
     this.modelService.numericSolve(numeric_solve_models).subscribe(data => {
       console.log(data)
     });

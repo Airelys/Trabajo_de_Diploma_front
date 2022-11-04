@@ -1,14 +1,14 @@
 export class ParameterEstimation{
-  model_name:string=''
+  model_name:string='';
   vars_initials: Array<object> =[];
   params: Array<object> =[];
   params_est: Array<boolean> =[];
   t: number = 0;
   total_points: number = 0;
-  method: string=''
-  N: number = 1
-  params_min: Array<object> =[];
-  params_max: Array<object> =[];
+  method: string='';
+  N: number = 1;
+  params_min: Array<number> =[];
+  params_max: Array<number> =[];
   classical_method: string='None';
   metaheuristic: string='None';
   path: string='';
