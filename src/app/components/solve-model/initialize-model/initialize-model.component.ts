@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 import { Subscription} from 'rxjs'
 import { ModelName } from 'src/app/models/model_name';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MinMax } from 'src/app/models/min_max';
+import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
 
 @Component({
   selector: 'app-initialize-model',
@@ -20,7 +21,7 @@ export class InitializeModelComponent implements OnInit {
   vars_initials = [{},{},{},{}];
   params_initials = [{},{},{},{},{},{},{}];
   params_est = [false,false,false,false,false,false,false];
-  params_max = [0,0,0,0,0,0,0];
+  params_max = [1,1,1,1,1,1,1];
   params_min = [0,0,0,0,0,0,0];
   methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}];
   estimation = false;
@@ -131,11 +132,16 @@ export class InitializeModelComponent implements OnInit {
 
   onSubmit(): void{
     const numeric_solve_models: NumericSolveModels = this.saveNumericSolveModel();
+    const results:ResultsNumericSolve = new ResultsNumericSolve();
     this.modelService.numericSolve(numeric_solve_models).subscribe(data => {
       console.log(data)
+      results.img = data.img,
+      results.sol = data.sol
     });
 
-    //this.router.navigate(['/']);
+    this.modelService.updateResultsNumeric(results);
+
+    this.router.navigate(['/results_numeric']);
   }
 
   updateEstimation():void{

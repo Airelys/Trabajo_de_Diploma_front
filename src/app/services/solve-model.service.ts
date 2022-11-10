@@ -19,6 +19,7 @@ export class SolveModelService {
   private bounds = new BehaviorSubject<boolean>(false);
   private min_max = new BehaviorSubject<MinMax>({} as any);
   private update = new BehaviorSubject<boolean>(false);
+  private results_numeric = new BehaviorSubject<ResultsNumericSolve>({} as any);
 
   apiUrl = 'http://127.0.0.1:8000/';
   numeric_solve_url = '/SolveEpidemiologicalModels';
@@ -77,7 +78,16 @@ export class SolveModelService {
   numericSolve(numeric_solve: NumericSolveModels): Observable<ResultsNumericSolve>{
     return this.http.post<ResultsNumericSolve>(this.apiUrl+this.numeric_solve_url,numeric_solve);
   }
+
   parammeterEstimation(est: ParameterEstimation): Observable<ResultsParameterEstimation>{
     return this.http.post<ResultsParameterEstimation>(this.apiUrl+this.estimation_url,est);
+  }
+
+  updateResultsNumeric(results:ResultsNumericSolve){
+    this.results_numeric.next(results);
+  }
+
+  obtResultsNumeric():Observable<ResultsNumericSolve>{
+    return this.results_numeric.asObservable();
   }
 }

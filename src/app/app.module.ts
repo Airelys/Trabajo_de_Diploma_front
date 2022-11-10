@@ -13,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SolveModelComponent } from './components/solve-model/solve-model.component';
 import { ParameterEstimationComponent } from './components/solve-model/parameter-estimation/parameter-estimation.component';
 import { InitializeModelComponent } from './components/solve-model/initialize-model/initialize-model.component';
-;
+import { ResultsNumericComponent } from './components/results-numeric/results-numeric.component';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InitializeModelComponent } from './components/solve-model/initialize-mo
     ModelComponent,
     InitializeModelComponent,
     ParameterEstimationComponent,
-    SolveModelComponent
+    SolveModelComponent,
+    ResultsNumericComponent
   ],
   imports: [
     BrowserModule,
