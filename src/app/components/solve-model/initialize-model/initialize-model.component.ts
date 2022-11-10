@@ -7,6 +7,7 @@ import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MinMax } from 'src/app/models/min_max';
 import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-initialize-model',
@@ -132,16 +133,14 @@ export class InitializeModelComponent implements OnInit {
 
   onSubmit(): void{
     const numeric_solve_models: NumericSolveModels = this.saveNumericSolveModel();
-    const results:ResultsNumericSolve = new ResultsNumericSolve();
+    var results:ResultsNumericSolve = new ResultsNumericSolve();
     this.modelService.numericSolve(numeric_solve_models).subscribe(data => {
-      console.log(data)
-      results.img = data.img,
-      results.sol = data.sol
+      results = JSON.parse(String(data));
+      this.modelService.updateResultsNumeric(results);
+
+      this.router.navigate(['/results_numeric']);
     });
 
-    this.modelService.updateResultsNumeric(results);
-
-    this.router.navigate(['/results_numeric']);
   }
 
   updateEstimation():void{
