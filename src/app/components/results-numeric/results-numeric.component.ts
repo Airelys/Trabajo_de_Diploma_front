@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ModelName } from 'src/app/models/model_name';
 import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
 import { SolveModelService } from 'src/app/services/solve-model.service';
+import { StyleServiceService } from 'src/app/services/style-service.service';
 
 @Component({
   selector: 'app-results-numeric',
@@ -16,18 +17,16 @@ export class ResultsNumericComponent implements OnInit {
   results: ResultsNumericSolve = new ResultsNumericSolve();
   model_name: ModelName = new ModelName();
 
-  constructor( private router: Router, private modelService:SolveModelService) { }
+  constructor( private router: Router, private modelService:SolveModelService, public styleService:StyleServiceService) { }
 
   ngOnInit(): void {
     this.subscription=this.modelService.obtResultsNumeric().subscribe(data => {
-      this.results = data
-      console.log(data)
+      this.results = data;
     })
 
     this.subscription=this.modelService.obtModelName().subscribe(data => {
       this.model_name = data
     })
   }
-
 
 }

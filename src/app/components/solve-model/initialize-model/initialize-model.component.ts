@@ -4,7 +4,7 @@ import { SolveModelService } from 'src/app/services/solve-model.service';
 import { Subscription} from 'rxjs'
 import { ModelName } from 'src/app/models/model_name';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MinMax } from 'src/app/models/min_max';
 import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
 import { JsonPipe } from '@angular/common';
@@ -133,9 +133,12 @@ export class InitializeModelComponent implements OnInit {
 
   onSubmit(): void{
     const numeric_solve_models: NumericSolveModels = this.saveNumericSolveModel();
+    numeric_solve_models.params_est = [false,false,false,false,false,false,false];
     var results:ResultsNumericSolve = new ResultsNumericSolve();
     this.modelService.numericSolve(numeric_solve_models).subscribe(data => {
+      console.log(data)
       results = JSON.parse(String(data));
+      console.log(results)
       this.modelService.updateResultsNumeric(results);
 
       this.router.navigate(['/results_numeric']);

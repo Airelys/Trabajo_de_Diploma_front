@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MinMax } from 'src/app/models/min_max';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
 import { ParameterEstimation } from 'src/app/models/parameter-estimation';
+import { ResultsParameterEstimation } from 'src/app/models/results_parameter_estimation';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class ParameterEstimationComponent implements OnInit {
   pso = false;
   de = false;
 
-  constructor(private fb: FormBuilder, private modelService:SolveModelService) {
+  constructor(private router: Router, private fb: FormBuilder, private modelService:SolveModelService) {
     this.form = this.fb.group({
       path:[''],
       file_name: [''],
@@ -107,9 +109,13 @@ export class ParameterEstimationComponent implements OnInit {
   onSubmit():void{
     this.modelService.updateAll(true);
     const parameter_est: ParameterEstimation = this.saveParameterEstimation();
+    var results:ResultsParameterEstimation = new ResultsParameterEstimation();
     this.modelService.parammeterEstimation(parameter_est).subscribe(data => {
-      console.log(data)
-    })
+      results = JSON.parse(String(data));
+      this.modelService.updateResultsParameter(results);
+
+      this.router.navigate(['/results_parameter']);
+    });
 
   }
 }
