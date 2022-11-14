@@ -79,6 +79,7 @@ label{
 .container-button{
   margin-top: 20px;
   text-align: center !important;
+  margin-bottom: 20px;
 }
 button{
     -webkit-tap-highlight-color: transparent;

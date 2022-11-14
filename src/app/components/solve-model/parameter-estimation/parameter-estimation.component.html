@@ -5,7 +5,7 @@
         <label><b>Seleccione una metaheurística</b></label>
         <br>
         <mat-form-field class="form_element">
-            <mat-select  (selectionChange)="updateMetaheuristic(met.value)" #met>
+            <mat-select  (selectionChange)="updateMetaheuristic(met.value)" #met required>
                 <mat-option *ngFor="let m of metaheuristics" [value]="m.name" >{{m.name}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -14,7 +14,7 @@
         <label><b>Seleccione un método clásico</b></label>
         <br>
         <mat-form-field class="form_element">
-            <mat-select  (selectionChange)="updateClassicalMethod(c_method.value)" #c_method>
+            <mat-select  (selectionChange)="updateClassicalMethod(c_method.value)" #c_method required>
                 <mat-option *ngFor="let m of classical_methods" [value]="m.name" >{{m.name}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -72,11 +72,11 @@
     <li>
       <p>
         <label><b>Escriba la dirección del archivo de datos</b></label>
-        <input value="" formControlName="path" #selectdirectory/>
+        <input value="" formControlName="path" #selectdirectory required/>
       </p>
       <p>
         <label><b>Nombre del archivo de datos</b></label>
-        <input formControlName="file_name" />
+        <input formControlName="file_name" required/>
       </p>
     </li>
 

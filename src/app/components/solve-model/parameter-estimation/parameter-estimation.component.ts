@@ -26,6 +26,7 @@ export class ParameterEstimationComponent implements OnInit {
   bounds = false;
   pso = false;
   de = false;
+  valid = false;
 
   constructor(private router: Router, private fb: FormBuilder, private modelService:SolveModelService) {
     this.form = this.fb.group({
@@ -96,11 +97,18 @@ export class ParameterEstimationComponent implements OnInit {
         parameter_estimation.cognitive = this.form.get('cognitive')?.value;
         parameter_estimation.social = this.form.get('social')?.value;
         parameter_estimation.inercia = this.form.get('inercia')?.value;
+        parameter_estimation.population = 0;
+        parameter_estimation.crossing = 0;
+        parameter_estimation.scaled = 0;
       }
       else{
         parameter_estimation.population = this.form.get('population')?.value;
         parameter_estimation.crossing = this.form.get('crossing')?.value;
         parameter_estimation.scaled = this.form.get('scaled')?.value;
+        parameter_estimation.particle = 0;
+        parameter_estimation.cognitive = 0;
+        parameter_estimation.social = 0;
+        parameter_estimation.inercia = 0;
       }
     }
     return parameter_estimation;

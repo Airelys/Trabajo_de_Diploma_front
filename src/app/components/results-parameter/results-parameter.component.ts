@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ModelName } from 'src/app/models/model_name';
 import { ResultsParameterEstimation } from 'src/app/models/results_parameter_estimation';
 import { SolveModelService } from 'src/app/services/solve-model.service';
+import { StyleServiceService } from 'src/app/services/style-service.service';
 
 @Component({
   selector: 'app-results-parameter',
@@ -17,7 +17,7 @@ export class ResultsParameterComponent implements OnInit {
   results: ResultsParameterEstimation = new ResultsParameterEstimation();
   model_name: ModelName = new ModelName();
 
-  constructor(private router: Router, private modelService:SolveModelService) { }
+  constructor(private router: Router, private modelService:SolveModelService, public styleService:StyleServiceService) { }
 
   ngOnInit(): void {
     this.subscription=this.modelService.obtResultsParameter().subscribe(data => {

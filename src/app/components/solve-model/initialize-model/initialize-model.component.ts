@@ -81,7 +81,6 @@ export class InitializeModelComponent implements OnInit {
   }
 
   updateModelData():void{
-    var temp = [this.params_initials, this.params_est,this.params_min,this.params_max]
 
     switch(this.model_name.model_name){
       case 'SI':

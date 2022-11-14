@@ -51,3 +51,9 @@ h3{
   color: rgb(55, 55, 216);
   margin-top: 15px;
 }
+
+.center{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
