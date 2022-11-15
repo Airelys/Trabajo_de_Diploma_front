@@ -14,6 +14,7 @@ export class SolveModelComponent implements OnInit {
   subscription: Subscription = new Subscription();
   model_name: ModelName = new ModelName();
   estimation: boolean = false
+  interval: boolean = false
 
   constructor(private modelService:SolveModelService) {
     this.subscription=this.modelService.obtModelName().subscribe(data => {
@@ -22,6 +23,10 @@ export class SolveModelComponent implements OnInit {
     this.subscription=this.modelService.obtEstimation().subscribe(data => {
       this.estimation = data
       console.log(this.estimation)
+    })
+    this.subscription=this.modelService.obtInterval().subscribe(data => {
+      this.interval = data
+      console.log(this.interval)
     })
   }
 

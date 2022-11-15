@@ -12,6 +12,7 @@ import { ModelComponent } from './components/model/model.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SolveModelComponent } from './components/solve-model/solve-model.component';
 import { ParameterEstimationComponent } from './components/solve-model/parameter-estimation/parameter-estimation.component';
+import { IntervalAnalysisComponent } from './components/solve-model/interval_analysis/interval_analysis.component';
 import { InitializeModelComponent } from './components/solve-model/initialize-model/initialize-model.component';
 ;
 
@@ -22,6 +23,7 @@ import { InitializeModelComponent } from './components/solve-model/initialize-mo
     ModelComponent,
     InitializeModelComponent,
     ParameterEstimationComponent,
+	IntervalAnalysisComponent,
     SolveModelComponent
   ],
   imports: [

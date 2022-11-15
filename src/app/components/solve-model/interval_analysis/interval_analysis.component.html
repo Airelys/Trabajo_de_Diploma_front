@@ -1,0 +1,14 @@
+<div class="container">
+  <form [formGroup]="form" #solve_model="ngForm" enctype="multipart/form-data">
+
+    <h4>Escriba el path del archivo de datos</h4>
+    <input value="" formControlName="path" #selectdirectory/>
+    <h5></h5>
+    <h4>Nombre del archivo de datos</h4>
+    <input formControlName="file_name" />
+  </form>
+</div>
+
+<div class="container_button">
+  <button mat-raised-button type="submit" (click)="onSubmit()">Analizar</button>
+</div>
