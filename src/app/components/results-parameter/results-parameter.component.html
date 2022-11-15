@@ -5,6 +5,35 @@
 
 <div class="container box">
   <h3><b>Parámetros óptimos:</b></h3>
+  <div *ngIf="numeric_solve.model_name=='SI'">
+    <p *ngIf="numeric_solve.params_est[0]"><b>&beta; : </b> {{results.opt[0]}}</p>
+    <p *ngIf="numeric_solve.params_est[1]"><b>&lambda; : </b> {{results.opt[1]}}</p>
+    <p *ngIf="numeric_solve.params_est[2]"><b>&mu; : </b> {{results.opt[2]}}</p>
+    <p *ngIf="numeric_solve.params_est[3]"><b>m : </b> {{results.opt[3]}}</p>
+  </div>
+  <div *ngIf="numeric_solve.model_name=='SIR'">
+    <p *ngIf="numeric_solve.params_est[0]"><b>&beta; : </b> {{results.opt[0]}}</p>
+    <p *ngIf="numeric_solve.params_est[1]"><b>&gamma; : </b> {{results.opt[1]}}</p>
+    <p *ngIf="numeric_solve.params_est[2]"><b>&lambda; : </b> {{results.opt[2]}}</p>
+    <p *ngIf="numeric_solve.params_est[3]"><b>&mu; : </b> {{results.opt[3]}}</p>
+    <p *ngIf="numeric_solve.params_est[4]"><b>m : </b> {{results.opt[4]}}</p>
+  </div>
+  <div *ngIf="numeric_solve.model_name=='SIRS'">
+    <p *ngIf="numeric_solve.params_est[0]"><b>&beta; : </b> {{results.opt[0]}}</p>
+    <p *ngIf="numeric_solve.params_est[1]"><b>&gamma; : </b> {{results.opt[1]}}</p>
+    <p *ngIf="numeric_solve.params_est[2]"><b>&delta; : </b> {{results.opt[2]}}</p>
+    <p *ngIf="numeric_solve.params_est[3]"><b>&lambda; : </b> {{results.opt[3]}}</p>
+    <p *ngIf="numeric_solve.params_est[4]"><b>&mu; : </b> {{results.opt[4]}}</p>
+    <p *ngIf="numeric_solve.params_est[5]"><b>m : </b> {{results.opt[5]}}</p>
+  </div>
+  <div *ngIf="numeric_solve.model_name=='SEIR'">
+    <p *ngIf="numeric_solve.params_est[0]"><b>&beta; : </b> {{results.opt[0]}}</p>
+    <p *ngIf="numeric_solve.params_est[1]"><b>&gamma; : </b> {{results.opt[1]}}</p>
+    <p *ngIf="numeric_solve.params_est[2]"><b>e : </b> {{results.opt[2]}}</p>
+    <p *ngIf="numeric_solve.params_est[3]"><b>&lambda;; : </b> {{results.opt[3]}}</p>
+    <p *ngIf="numeric_solve.params_est[4]"><b>&mu; : </b> {{results.opt[4]}}</p>
+    <p *ngIf="numeric_solve.params_est[5]"><b>m : </b> {{results.opt[5]}}</p>
+  </div>
 </div>
 
 <div class="container box">

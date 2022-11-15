@@ -4,7 +4,7 @@ import { SolveModelService } from 'src/app/services/solve-model.service';
 import { Subscription} from 'rxjs'
 import { ModelName } from 'src/app/models/model_name';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MinMax } from 'src/app/models/min_max';
 import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
 import { JsonPipe } from '@angular/common';
@@ -33,11 +33,16 @@ export class InitializeModelComponent implements OnInit {
   constructor( private router: Router, private modelService:SolveModelService,
               private fb: FormBuilder) {
     this.form = this.fb.group({
-      method: [''],
-      S:[Number],I:[Number],R:[Number],E:[Number],
-      t:[Number],
-      total_points:[Number],
-      N:[Number] 
+      beta:[Number,Validators.required], gamma:[Number,Validators.required],
+      delta:[Number,Validators.required], e:[Number,Validators.required],
+      lambda:[Number,Validators.required], mu:[Number,Validators.required],
+      m:[Number,Validators.required],
+      method: ['',Validators.required],
+      S:[Number,Validators.required],I:[Number,Validators.required],
+      R:[Number,Validators.required],E:[Number,Validators.required],
+      t:['10',Validators.required],
+      total_points:['20',Validators.required],
+      N:['1',Validators.min(1)&&Validators.required]
     })
   }
 
