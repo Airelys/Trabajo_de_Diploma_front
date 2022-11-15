@@ -15,6 +15,8 @@ import { ParameterEstimationComponent } from './components/solve-model/parameter
 import { InitializeModelComponent } from './components/solve-model/initialize-model/initialize-model.component';
 import { ResultsNumericComponent } from './components/results-numeric/results-numeric.component';
 import { ResultsParameterComponent } from './components/results-parameter/results-parameter.component';
+import { PresentationComponent } from './components/presentation/presentation.component';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { ResultsParameterComponent } from './components/results-parameter/result
     ParameterEstimationComponent,
     SolveModelComponent,
     ResultsNumericComponent,
-    ResultsParameterComponent
+    ResultsParameterComponent,
+    PresentationComponent
   ],
   imports: [
     BrowserModule,

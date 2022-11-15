@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ContentChildren, OnInit, QueryList } from '@angular/core';
 
 @Component({
   selector: 'app-header',
