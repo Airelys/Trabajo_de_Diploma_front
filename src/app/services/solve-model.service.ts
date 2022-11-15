@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { ResultsNumericSolve } from '../models/results_numeric_solve';
 import { ParameterEstimation } from '../models/parameter-estimation';
 import { ResultsParameterEstimation } from '../models/results_parameter_estimation';
+import { IntervalAnalysis } from '../models/interval_analysis';
+import { ResultsIntervalAnalysis } from '../models/results_interval_analysis';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +18,15 @@ export class SolveModelService {
   private model_name = new BehaviorSubject<ModelName>({} as any);
   private numeric_solve_model = new BehaviorSubject<NumericSolveModels>({} as any);
   private estimation = new BehaviorSubject<boolean>(false);
+  private interval = new BehaviorSubject<boolean>(false);
   private bounds = new BehaviorSubject<boolean>(false);
   private min_max = new BehaviorSubject<MinMax>({} as any);
   private update = new BehaviorSubject<boolean>(false);
 
-  apiUrl = 'http://127.0.0.1:8000/';
+  apiUrl = 'http://127.0.0.1:5000/';
   numeric_solve_url = '/SolveEpidemiologicalModels';
   estimation_url = '/ParameterEstimation';
+  interval_url = '/IntervalAnalysis';
 
   constructor(private http : HttpClient) { }
 
@@ -48,6 +52,14 @@ export class SolveModelService {
 
   obtEstimation():Observable<boolean>{
     return this.estimation.asObservable();
+  }
+
+  updateInterval(interval:boolean){
+    this.interval.next(interval);
+  }
+
+  obtInterval():Observable<boolean>{
+    return this.interval.asObservable();
   }
 
   updateBounds(bounds:boolean){
@@ -79,5 +91,9 @@ export class SolveModelService {
   }
   parammeterEstimation(est: ParameterEstimation): Observable<ResultsParameterEstimation>{
     return this.http.post<ResultsParameterEstimation>(this.apiUrl+this.estimation_url,est);
+  }
+
+  intervalAnalysis(interv: IntervalAnalysis): Observable<ResultsIntervalAnalysis>{
+    return this.http.post<ResultsIntervalAnalysis>(this.apiUrl+this.interval_url,interv);
   }
 }

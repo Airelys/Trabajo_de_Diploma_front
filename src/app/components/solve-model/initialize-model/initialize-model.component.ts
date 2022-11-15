@@ -24,6 +24,7 @@ export class InitializeModelComponent implements OnInit {
   params_min = [0,0,0,0,0,0,0];
   methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}];
   estimation = false;
+  interval = false;
   bounds = false;
   update =false;
 
@@ -34,7 +35,7 @@ export class InitializeModelComponent implements OnInit {
       S:[Number],I:[Number],R:[Number],E:[Number],
       t:[Number],
       total_points:[Number],
-      N:[Number]
+      N:[Number] 
     })
   }
 
@@ -141,6 +142,11 @@ export class InitializeModelComponent implements OnInit {
   updateEstimation():void{
     this.modelService.updateEstimation(true);
     this.estimation = true;
+  }
+  
+  updateInterval():void{
+    this.modelService.updateInterval(true);
+    this.interval = true;
   }
 
   save():void{

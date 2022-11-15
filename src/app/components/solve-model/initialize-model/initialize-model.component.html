@@ -6,7 +6,7 @@
             <tr>
                 <td><h4>Parametros</h4></td>
                 <td><h4>Valores Iniciales</h4></td>
-                <td><h4>Estimar??</h4></td>
+                <td><h4>Seleccionar Parametros</h4></td>
                 <td *ngIf="bounds"><h4>Valores minimos</h4></td>
                 <td *ngIf="bounds"><h4>Valores maximos</h4></td>
             </tr>
@@ -95,4 +95,5 @@
 <div *ngIf="!estimation">
   <button mat-raised-button type="submit" [disabled]="!initialize_model.form.valid"  (click)="onSubmit()">Resolver numericamente</button>
   <button (click)="updateEstimation()" >Estimar parametros</button>
+  <button (click)="updateInterval()" >Analizar Intervalos</button>
 </div>
