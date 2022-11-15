@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 import { Subscription} from 'rxjs'
 import { ModelName } from 'src/app/models/model_name';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MinMax } from 'src/app/models/min_max';
+import { ResultsNumericSolve } from 'src/app/models/results_numeric_solve';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-initialize-model',
@@ -20,7 +22,7 @@ export class InitializeModelComponent implements OnInit {
   vars_initials = [{},{},{},{}];
   params_initials = [{},{},{},{},{},{},{}];
   params_est = [false,false,false,false,false,false,false];
-  params_max = [0,0,0,0,0,0,0];
+  params_max = [1,1,1,1,1,1,1];
   params_min = [0,0,0,0,0,0,0];
   methods = [{name:'RK45'},{name:'RK23'},{name:'DOP853'},{name:'Radau'},{name:'BDF'},{name:'LSODA'}];
   estimation = false;
@@ -31,11 +33,16 @@ export class InitializeModelComponent implements OnInit {
   constructor( private router: Router, private modelService:SolveModelService,
               private fb: FormBuilder) {
     this.form = this.fb.group({
-      method: [''],
-      S:[Number],I:[Number],R:[Number],E:[Number],
-      t:[Number],
-      total_points:[Number],
-      N:[Number] 
+      beta:[Number,Validators.required], gamma:[Number,Validators.required],
+      delta:[Number,Validators.required], e:[Number,Validators.required],
+      lambda:[Number,Validators.required], mu:[Number,Validators.required],
+      m:[Number,Validators.required],
+      method: ['',Validators.required],
+      S:[Number,Validators.required],I:[Number,Validators.required],
+      R:[Number,Validators.required],E:[Number,Validators.required],
+      t:['10',Validators.required],
+      total_points:['20',Validators.required],
+      N:['1',Validators.min(1)&&Validators.required]
     })
   }
 
@@ -80,7 +87,6 @@ export class InitializeModelComponent implements OnInit {
   }
 
   updateModelData():void{
-    var temp = [this.params_initials, this.params_est,this.params_min,this.params_max]
 
     switch(this.model_name.model_name){
       case 'SI':
@@ -132,11 +138,17 @@ export class InitializeModelComponent implements OnInit {
 
   onSubmit(): void{
     const numeric_solve_models: NumericSolveModels = this.saveNumericSolveModel();
+    numeric_solve_models.params_est = [false,false,false,false,false,false,false];
+    var results:ResultsNumericSolve = new ResultsNumericSolve();
     this.modelService.numericSolve(numeric_solve_models).subscribe(data => {
       console.log(data)
+      results = JSON.parse(String(data));
+      console.log(results)
+      this.modelService.updateResultsNumeric(results);
+
+      this.router.navigate(['/results_numeric']);
     });
 
-    //this.router.navigate(['/']);
   }
 
   updateEstimation():void{

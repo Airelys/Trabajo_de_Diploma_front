@@ -1,4 +1,4 @@
 export class ResultsNumericSolve{
-  sol: Array<number> =[];
-  img: Array<number> =[];
+  sol: Array<Array<Number>> =[];
+  img: any;
 }

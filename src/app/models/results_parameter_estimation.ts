@@ -1,5 +1,5 @@
 export class ResultsParameterEstimation{
-  sol: Array<number> =[];
+  sol: Array<Array<Number>> =[];
   opt: Array<number> =[];
-  img: Array<number> =[];
+  img: any;
 }

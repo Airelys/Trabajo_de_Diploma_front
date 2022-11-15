@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MinMax } from 'src/app/models/min_max';
 import { NumericSolveModels } from 'src/app/models/numeric_solve_model';
 import { ParameterEstimation } from 'src/app/models/parameter-estimation';
+import { ResultsParameterEstimation } from 'src/app/models/results_parameter_estimation';
 import { SolveModelService } from 'src/app/services/solve-model.service';
 
 @Component({
@@ -24,14 +26,19 @@ export class ParameterEstimationComponent implements OnInit {
   bounds = false;
   pso = false;
   de = false;
+  valid = false;
 
-  constructor(private fb: FormBuilder, private modelService:SolveModelService) {
+  constructor(private router: Router, private fb: FormBuilder, private modelService:SolveModelService) {
     this.form = this.fb.group({
-      path:[''],
-      file_name: [''],
-      iter: [Number],
-      particle: [Number], cognitive: [Number], social: [Number], inercia: [Number],
-      population: [Number], crossing: [Number], scaled: [Number]
+      met:['',Validators.required],
+      clas:['',Validators.required],
+      path:['',Validators.required],
+      file_name: ['',Validators.required],
+      iter: ['5',Validators.required],
+      particle: ['5',Validators.required], cognitive: ['0.5',Validators.required],
+      social: ['0.3',Validators.required], inercia: ['0.9',Validators.required],
+      population: ['100',Validators.required], crossing: ['0.8',Validators.required],
+      scaled: ['0.6',Validators.required]
     })
   }
 
@@ -88,18 +95,35 @@ export class ParameterEstimationComponent implements OnInit {
     parameter_estimation.path = this.form.get('path')?.value + '\\'+this.form.get('file_name')?.value;
     console.log(parameter_estimation.path)
     if(this.metaheuristic!='None'){
-      parameter_estimation.iter = this.form.get('iter')?.value;
-      if(this.metaheuristic!='PSO'){
+      this.form.get('iter')?.value==''? parameter_estimation.iter = 5 : parameter_estimation.iter = this.form.get('iter')?.value;
+      if(this.metaheuristic=='PSO'){
         parameter_estimation.particle = this.form.get('particle')?.value;
         parameter_estimation.cognitive = this.form.get('cognitive')?.value;
         parameter_estimation.social = this.form.get('social')?.value;
         parameter_estimation.inercia = this.form.get('inercia')?.value;
+        parameter_estimation.population = 0;
+        parameter_estimation.crossing = 0;
+        parameter_estimation.scaled = 0;
       }
       else{
         parameter_estimation.population = this.form.get('population')?.value;
         parameter_estimation.crossing = this.form.get('crossing')?.value;
         parameter_estimation.scaled = this.form.get('scaled')?.value;
+        parameter_estimation.particle = 0;
+        parameter_estimation.cognitive = 0;
+        parameter_estimation.social = 0;
+        parameter_estimation.inercia = 0;
       }
+    }
+    else{
+      parameter_estimation.iter = 0;
+      parameter_estimation.particle = 0;
+      parameter_estimation.cognitive = 0;
+      parameter_estimation.social = 0;
+      parameter_estimation.inercia = 0;
+      parameter_estimation.population = 0;
+      parameter_estimation.crossing = 0;
+      parameter_estimation.scaled = 0;
     }
     return parameter_estimation;
   }
@@ -107,9 +131,13 @@ export class ParameterEstimationComponent implements OnInit {
   onSubmit():void{
     this.modelService.updateAll(true);
     const parameter_est: ParameterEstimation = this.saveParameterEstimation();
+    var results:ResultsParameterEstimation = new ResultsParameterEstimation();
     this.modelService.parammeterEstimation(parameter_est).subscribe(data => {
-      console.log(data)
-    })
+      results = JSON.parse(String(data));
+      this.modelService.updateResultsParameter(results);
+
+      this.router.navigate(['/results_parameter']);
+    });
 
   }
 }

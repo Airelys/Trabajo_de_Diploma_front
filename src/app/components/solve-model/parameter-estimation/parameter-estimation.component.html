@@ -1,53 +1,93 @@
-<div class="container">
-  <form [formGroup]="form" #solve_model="ngForm" enctype="multipart/form-data">
+<div class="container-div">
+  <form [formGroup]="form" #solve_model="ngForm" enctype="multipart/form-data" class="container box">
+    <li>
+      <p>
+        <label><b>Seleccione una metaheurística</b></label>
+        <br>
+        <mat-form-field class="form_element">
+            <mat-select  (selectionChange)="updateMetaheuristic(met.value)" #met formControlName="met">
+                <mat-option *ngFor="let m of metaheuristics" [value]="m.name" >{{m.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <label><b>Seleccione un método clásico</b></label>
+        <br>
+        <mat-form-field class="form_element">
+            <mat-select  (selectionChange)="updateClassicalMethod(c_method.value)" #c_method formControlName="clas">
+                <mat-option *ngFor="let m of classical_methods" [value]="m.name" >{{m.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </p>
+    </li>
 
-    <h4>Selecciona un metodo clasico</h4>
-    <mat-form-field class="form_element">
-        <mat-select  (selectionChange)="updateClassicalMethod(c_method.value)" #c_method>
-            <mat-option *ngFor="let m of classical_methods" [value]="m.name" >{{m.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <h4>Selecciona un metaheuristica</h4>
-    <mat-form-field class="form_element">
-        <mat-select  (selectionChange)="updateMetaheuristic(met.value)" #met>
-            <mat-option *ngFor="let m of metaheuristics" [value]="m.name" >{{m.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
 
     <div *ngIf="metaheuristic!='None'">
-      <h4 >Cantidad de iteraciones</h4>
-      <input type="number" formControlName="iter"/>
+      <label><b>Cantidad de iteraciones</b></label>
+      <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="iter"/>
     </div>
 
     <div *ngIf="pso">
-      <h4>Cantidad de particulas</h4>
-      <input type="number" formControlName="particle" />
-      <h4>Parametro cognitivo</h4>
-      <input type="number" formControlName="cognitive" />
-      <h4>Parametro social</h4>
-      <input type="number" formControlName="social" />
-      <h4>Parametro de inercia</h4>
-      <input type="number" formControlName="inercia" />
+      <li>
+        <p>
+          <label><b>Cantidad de partículas</b></label>
+          <br>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="particle" />
+        </p>
+        <p>
+          <label><b>Parámetro cognitivo</b></label>
+          <br>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="cognitive" />
+        </p>
+        <p>
+          <label><b>Parámetro social</b></label>
+          <br>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="social" />
+        </p>
+        <p>
+          <label><b>Parámetro de inercia</b></label>
+          <br>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="inercia" />
+        </p>
+      </li>
     </div>
 
     <div *ngIf="de">
-      <h4>Poblacion</h4>
-      <input type="number" formControlName="population" />
-      <h4>Factor crossing</h4>
-      <input type="number" formControlName="crossing" />
-      <h4>Factor de escalado</h4>
-      <input type="number" formControlName="scaled" />
+      <li>
+        <p>
+          <label><b>Población</b></label>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="population" />
+        </p>
+        <p>
+          <label><b>Factor de cruzamiento</b></label>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="crossing" />
+        </p>
+        <p>
+          <label><b>Factor de escalado</b></label>
+          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46) " formControlName="scaled" />
+        </p>
+      </li>
     </div>
 
-    <h4>Escriba el path del archivo de datos</h4>
-    <input value="" formControlName="path" #selectdirectory/>
-    <h5></h5>
-    <h4>Nombre del archivo de datos</h4>
-    <input formControlName="file_name" />
+    <li>
+      <p>
+        <label><b>Escriba la dirección del archivo de datos</b></label>
+        <input value="" formControlName="path" #selectdirectory />
+      </p>
+      <p>
+        <label><b>Nombre del archivo de datos</b></label>
+        <input formControlName="file_name" />
+      </p>
+    </li>
+
   </form>
 </div>
 
 <div class="container_button">
-  <button mat-raised-button type="submit" (click)="onSubmit()">Estimar</button>
+  <button mat-raised-button type="submit" [disabled]="!solve_model.form.valid" (click)="onSubmit()">
+    <div class="pattern">
+      <div class="target inner"></div>
+    </div>
+    <div class="text">Estimar los parámetros</div>
+  </button>
 </div>

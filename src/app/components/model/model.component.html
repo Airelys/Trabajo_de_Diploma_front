@@ -1,14 +1,19 @@
-<div class="container">
-    <h4>Escoja el modelo a usar</h4>
-    <form [formGroup]="form" #solve="ngForm" (ngSubmit)="onSubmit()">
+<div class="container-div">
+    <p><b>Escoja el modelo a usar</b></p>
+    <form [formGroup]="form" #solve="ngForm" (ngSubmit)="onSubmit()" class="container box">
         <mat-form-field class="form_element">
             <mat-select  formControlName="model_name" required>
                 <mat-option *ngFor="let m of models" [value]="m.name" >{{m.name}}</mat-option>
             </mat-select>
         </mat-form-field>
-    </form> 
+    </form>
 </div>
 
-<div class="container_button">
-    <button [disabled]="!solve.form.valid" mat-raised-button type="submit" (click)="onSubmit()">Resolver Modelo</button>
+<div class="container-button">
+    <button mat-button color="primary" [disabled]="!solve.form.valid"  type="submit" (click)="onSubmit()">
+      <div class="pattern">
+        <div class="target inner bg1"></div>
+      </div>
+      <div class="text">Resolver modelo</div>
+    </button>
 </div>
